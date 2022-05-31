@@ -2,9 +2,9 @@ public class Libro {
     private String titulo, autor , genero;
 
     public Libro() {
-        titulo = "";
-        autor = "";
-        genero = "";
+        this.titulo = "";
+        this.autor = "";
+        this.genero = "";
     }
 
     public String getTitulo() {
@@ -30,4 +30,10 @@ public class Libro {
     public void setGenero(String genero) {
         this.genero = genero;
     }
+
+    @Override
+    public String toString() {
+        return "Libro: '"+this.titulo+"', de "+this.autor+", genero: "+this.genero;
+    }
 }
+
