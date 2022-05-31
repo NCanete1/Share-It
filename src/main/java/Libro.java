@@ -1,10 +1,10 @@
 public class Libro {
     private String titulo, autor , genero;
 
-    public Libro(String titulo, String autor, String genero) {
-        this.titulo = titulo;
-        this.autor = autor;
-        this.genero = genero;
+    public Libro() {
+        titulo = "";
+        autor = "";
+        genero = "";
     }
 
     public String getTitulo() {
