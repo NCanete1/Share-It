@@ -1,11 +1,11 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Project {
+public class Project2 {
     Scanner teclado= new Scanner(System.in);
     private String ruta= "Biblioteca/";
     private String rutausuario= "Biblioteca/usuario1.txt";
-
     private File file;
 
     public File CrearRuta(String user){
@@ -31,10 +31,10 @@ public class Project {
                 }
         }
 
-    public void LeerBiblioteca(String ruta){
+    public void LeerBiblioteca(String user){
         String texto= "";
         try {
-            BufferedReader bf= new BufferedReader(new FileReader(ruta));
+            BufferedReader bf= new BufferedReader(new FileReader(ruta+user+".txt"));
             String bfRead,temp="";
             while ((bfRead = bf.readLine()) != null){
                 temp = (temp + bfRead + "\n");
@@ -50,22 +50,24 @@ public class Project {
             String nombre;
             do{
                 System.out.println("Ingrese nombre del Libro");
-                nombre=teclado.nextLine().toLowerCase().replace(" ","");
+                nombre=teclado.nextLine().toUpperCase();
                     if(nombre.equals("")){
                         System.out.println("Debe almenos introducir el Nombre del Libro");
                         }
             }while (nombre.equals(""));
             System.out.println("Ingresar nombre del Autor");
-            String autor=teclado.nextLine().toLowerCase().replace(" ","");
+            String autor=teclado.nextLine();
             if(autor.equals("")){
                 autor= "Desconocido.";
             }
             System.out.println("Ingresar genero del libro");
-            String genre =teclado.nextLine().toLowerCase().replace(" ","");
+            String genre =teclado.nextLine();
             if(genre.equals("")){
                 genre = "Desconocido.";
             }
-            return nombre+", "+autor+", "+ genre +".";
+            Biblioteca biblioteca = new Biblioteca();
+            biblioteca.AñadirLibro(nombre,autor,genre);
+            return biblioteca.getLibros();
         } catch (Exception e) {
             System.out.println("Error Exception (Add libro)");
             e.printStackTrace();
@@ -92,7 +94,7 @@ public class Project {
             File file = new File(ruta);
             File[] files = file.listFiles();
             for (File value : files) {
-                System.out.println(value.getName());
+                System.out.println(value.getName().replace(".txt",""));
             }
         }catch (Exception e){
             System.out.println("Error exception (MostrarUsuarios)");
@@ -110,7 +112,6 @@ public class Project {
                 if(temp.contains(libro)){
                     encontrado= encontrado + temp + "\n";
                 }
-
             }
         } catch (Exception e) {
             System.out.println("Error Exception(BuscarLibroUsuario)");
@@ -119,11 +120,12 @@ public class Project {
     }
 
     public void MostrarBuscarLibroUsuario(String usuario, String nombrelibro) {
-        if((BuscarLibroUsuario(ruta, nombrelibro).equals(""))){
+        if((BuscarLibroUsuario(usuario, nombrelibro).equals(""))){
             System.out.println("El Usuario introducion no posee ningun libro de nombre: " + nombrelibro);
         }else{
         System.out.println(nombrelibro +" encontrados en " + usuario + ": ");
-            System.out.println((BuscarLibroUsuario(ruta, nombrelibro)));
+            System.out.println("----------------");
+            System.out.println((BuscarLibroUsuario(usuario, nombrelibro)));
         }
     }
     public void BuscarLibro(String libro) {

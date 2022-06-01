@@ -1,8 +1,6 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Biblioteca{
-    Scanner teclado= new Scanner(System.in);
     private ArrayList<Libro> listlibro = new ArrayList();
 
     public ArrayList<Libro> getListlibro() {
@@ -22,7 +20,7 @@ public class Biblioteca{
     public String getLibros(){
         String lista= "";
         for(Libro libro: listlibro){
-            lista += libro+ "\n";
+            lista += libro;
         }
         return lista;
     }

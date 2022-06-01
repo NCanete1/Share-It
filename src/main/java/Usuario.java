@@ -2,21 +2,22 @@ import java.util.ArrayList;
 
 public class Usuario {
     private String nombre, correo , telefono;
-    private ArrayList<Biblioteca> bibliotecas = new ArrayList();
+    private Biblioteca biblioteca;
 
-    public Usuario() {
+
+    public Usuario(String nombre, String correo, String telefono, Biblioteca biblioteca) {
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
-        this.bibliotecas = bibliotecas;
+        this.biblioteca= biblioteca;
     }
 
-    public ArrayList<Biblioteca> getBibliotecas() {
-        return bibliotecas;
+    public Biblioteca getBiblioteca() {
+        return biblioteca;
     }
 
-    public void setBibliotecas(ArrayList<Biblioteca> bibliotecas) {
-        this.bibliotecas = bibliotecas;
+    public void setBiblioteca(Biblioteca biblioteca) {
+        this.biblioteca = biblioteca;
     }
 
     public String getNombre() {
@@ -45,6 +46,6 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario: "+ this.nombre +", correo:"+ this.correo+ ", telefono: "+ "cantidad de libros: "+ this.bibliotecas.size();
+        return "Usuario: "+ this.nombre +", correo:"+ this.correo+ ", telefono: ";
     }
 }

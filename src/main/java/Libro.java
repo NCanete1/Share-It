@@ -33,7 +33,7 @@ public class Libro {
 
     @Override
     public String toString() {
-        return "Libro: '"+this.titulo+"', de "+this.autor+", genero: "+this.genero;
+        return this.titulo+", "+this.autor+", "+this.genero;
     }
 }
 
