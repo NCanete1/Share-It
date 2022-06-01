@@ -1,6 +1,6 @@
 # Share-It
 
-Nicolás Cañete \n
+Nicolás Cañete 
 José Huircaleo
 
 Link del video:
