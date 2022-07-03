@@ -24,10 +24,44 @@ public class PerfilV extends JFrame {
         setVisible(true);
     }
 
+    public PerfilV(String usuario, String email, int telefono) {
+        Menu();
+        MenuLabel(usuario);
+        MenuButtons();
+        MenuTextField(email,telefono);
+        pack();
+        setVisible(true);
+    }
+
     public void MenuLabel() {
         // Componentes
         labelPerfil = new JLabel("Perfil");
-        labelNombre = new JLabel("*Nombre del Usuario*");
+        labelNombre = new JLabel("Nombre");
+
+        labelemail = new JLabel("Correo de Contacto");
+        labelCelular = new JLabel("Celular");
+
+        // add componentes
+        add(labelPerfil);
+        add(labelNombre);
+
+        add(labelemail);
+        add(labelCelular);
+
+        // Posicionamiento
+
+        labelPerfil.setBounds(130, 55, 95, 25);
+        labelNombre.setBounds(185, 95, 140, 25);
+
+        labelemail.setBounds(130, 165, 155, 20);
+        labelCelular.setBounds(130, 225, 100, 25);
+
+    }
+
+    public void MenuLabel(String usuario) {
+        // Componentes
+        labelPerfil = new JLabel("Perfil");
+        labelNombre = new JLabel(usuario.toUpperCase());
 
         labelemail = new JLabel("Correo de Contacto");
         labelCelular = new JLabel("Celular");
@@ -53,6 +87,30 @@ public class PerfilV extends JFrame {
         // Componentes
         email = new JTextField(5);
         celular = new JTextField(5);
+
+        //Propiedades
+        email.setEditable(false);
+        celular.setEditable(false);
+
+        // add componentes
+        add(email);
+        add(celular);
+
+        // Posicionamiento
+        email.setBounds(130, 190, 250, 20);
+        celular.setBounds(130, 250, 250, 20);
+
+    }
+
+
+    public void MenuTextField(String correo, int telefono) {
+        // Componentes
+        email = new JTextField(correo);
+        celular = new JTextField(String.valueOf(telefono));
+
+        //Propiedades
+        email.setEditable(false);
+        celular.setEditable(false);
 
         // add componentes
         add(email);
@@ -88,7 +146,7 @@ public class PerfilV extends JFrame {
         ActionListener Biblioteca = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                InicioSesionV ventana = new InicioSesionV();
+                BibilotecaV ventana = new BibilotecaV();
                 ventana.setVisible(true);
                 dispose();
             }

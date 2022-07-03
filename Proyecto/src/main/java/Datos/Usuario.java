@@ -1,16 +1,26 @@
 package Datos;
-import java.util.ArrayList;
+
 
 public class Usuario {
-    private String nombre, correo , telefono;
+    private String rut,nombre, correo;
+    private int telefono;
     private Biblioteca biblioteca;
+   
 
-
-    public Usuario(String nombre, String correo, String telefono, Biblioteca biblioteca) {
+    public Usuario(String rut, String nombre, String correo, int telefono, Biblioteca biblioteca) {
+        this.rut = rut;
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
-        this.biblioteca= biblioteca;
+        this.biblioteca = biblioteca;
+    }
+
+    public String getRut() {
+        return rut;
+    }
+
+    public void setRut(String rut) {
+        this.rut = rut;
     }
 
     public Biblioteca getBiblioteca() {
@@ -37,11 +47,11 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public String getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
 

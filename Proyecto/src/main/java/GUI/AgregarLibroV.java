@@ -79,6 +79,20 @@ public class AgregarLibroV extends JFrame {
         buttonAgregar.setBounds(175, 290, 160, 35);
         buttonRetroceder.setBounds(15, 15, 100, 25);
 
+        //Listener
+
+        ActionListener regresar = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                BibilotecaV ventana = new BibilotecaV();
+                ventana.setVisible(true);
+                dispose();
+            }
+        };
+
+        //Add Listenner
+        buttonRetroceder.addActionListener(regresar);
+
     }
 
     public void Menu() {

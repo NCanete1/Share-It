@@ -5,6 +5,9 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
+import Datos.Agenda;
+import Modelo.Rutas;
+
 public class CrearCuentaV extends JFrame {
     private JLabel labelMensaje;
     private JLabel labelRut;
@@ -14,9 +17,11 @@ public class CrearCuentaV extends JFrame {
     private JLabel labelCelular;
     private JTextField celular;
     private JLabel labelContraseña;
-    private JTextField contraseña;
+    private JPasswordField contraseña;
     private JButton buttonContinuar;
     private JButton buttonCancelar;
+
+    private MyActionListener al;
 
     public CrearCuentaV() {
         Menu();
@@ -59,7 +64,7 @@ public class CrearCuentaV extends JFrame {
         rut = new JTextField(5);
         email = new JTextField(5);
         celular = new JTextField(5);
-        contraseña = new JTextField(5);
+        contraseña = new JPasswordField(5);
 
         // add componentes
         add(rut);
@@ -88,7 +93,47 @@ public class CrearCuentaV extends JFrame {
         buttonContinuar.setBounds(185, 360, 160, 35);
         buttonCancelar.setBounds(220, 415, 100, 25);
 
+        ActionListener regresar = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {   
+                    InicioSesionV ventana = new InicioSesionV();
+                    ventana.setVisible(true);
+                    dispose();
+                }
+        };
+
+
+        //Añadir Acciones
+        MyActionListener al= new MyActionListener();
+        buttonContinuar.addActionListener(al);
+
     }
+
+    //Listener
+
+    private class MyActionListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            if (rut.getText().isEmpty() || contraseña.getPassword().length == 0 ||email.getText().isEmpty() ||celular.getText().isEmpty() ) {
+                JOptionPane.showMessageDialog(null, "Favor de llenar los espacios vacios");
+            } else {
+                Agenda agenda = new Agenda();
+                if(!agenda.ValidarRut(rut.getText())) {
+                    JOptionPane.showMessageDialog(null, "Ingrese un rut valido");
+                    }else{
+                        Rutas rutas = new Rutas();
+                        if(!rutas.ExisteUsuario(rut.getText())){
+                            JOptionPane.showMessageDialog(null, "El usuario ya existe");
+                        }else{
+                            agenda.AñadirUsarios(rut.getText(), String.valueOf(contraseña.getPassword()), email.getText(), Integer.parseInt(celular.getText()));
+                            PerfilV ventana = new PerfilV(rut.getText(), email.getText(),Integer.parseInt(celular.getText()));
+                            ventana.setVisible(true);
+                            dispose();
+                        }
+                    }
+                }
+            }
+        }
 
     public void Menu() {
         // Tamaño y Diseño

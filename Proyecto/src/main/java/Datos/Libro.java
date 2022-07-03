@@ -1,4 +1,4 @@
-package Modelo;
+package Datos;
 public class Libro {
     private String titulo, autor , genero;
 
@@ -34,7 +34,7 @@ public class Libro {
 
     @Override
     public String toString() {
-        return this.titulo+", "+this.autor+", "+this.genero;
+        return this.genero+"/"+this.autor+"/"+this.titulo;
     }
 }
 

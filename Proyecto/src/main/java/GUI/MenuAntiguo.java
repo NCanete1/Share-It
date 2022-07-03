@@ -34,7 +34,7 @@ public class MenuAntiguo {
                         break;
                     case 2:
                         String nuevouser= teclado.nextLine();
-                        project.LibreriaUsuario(nuevouser);
+                        project.CrearBibliotecaUsuario(nuevouser);
                         break;
                     case 3:
                         System.out.println("Introduzca el nombre del usuario a entrar: ");

@@ -1,4 +1,6 @@
 package Modelo;
+
+import Datos.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -20,14 +22,32 @@ public class Rutas {
         return new File("");
     }
 
-    public void LibreriaUsuario(String usuario) {
+    public boolean ExisteUsuario(String usuario) {
+        boolean result=false;
+        file = CrearRuta(usuario);
+        if (file.exists()) {
+            try {
+                result= false;
+            } catch (Exception e) {
+                System.out.println("Exception Error (Existencia del Usuario.)");
+            }
+            } else {
+                result= true;
+            }
+            return result;
+        }
+    
+    
+
+
+    public void CrearBibliotecaUsuario(String usuario) {
                 file = CrearRuta(usuario);
                 // Verifica que el archivo existe o no.
                 if (!file.exists()) {
                     try {
                         file.createNewFile();
                     } catch (Exception e) {
-                        System.out.println("Exception Error (Libreria Usuario.)");
+                        System.out.println("Exception Error (CrearBibliotecaUsuario.)");
                     }
                 }
         }
@@ -46,43 +66,28 @@ public class Rutas {
         }
         System.out.println(texto);
     }
-    public String AddLibro(){
-        try {
-            String nombre;
-            do{
-                System.out.println("Ingrese nombre del Libro");
-                nombre=teclado.nextLine().toUpperCase();
-                    if(nombre.equals("")){
-                        System.out.println("Debe almenos introducir el Nombre del Libro");
-                        }
-            }while (nombre.equals(""));
-            System.out.println("Ingresar nombre del Autor");
-            String autor=teclado.nextLine();
+    public String AddLibro(String titulo,String autor,String genero){
             if(autor.equals("")){
-                autor= "Desconocido.";
+                autor= "DESCONOCIDO";
             }
-            System.out.println("Ingresar genero del libro");
             String genre =teclado.nextLine();
             if(genre.equals("")){
-                genre = "Desconocido.";
+                genre = "DESCONOCIDO";
             }
             Biblioteca biblioteca = new Biblioteca();
-            biblioteca.AñadirLibro(nombre,autor,genre);
+            biblioteca.AñadirLibro(titulo.toUpperCase(),autor.toUpperCase(),genre.toUpperCase());
             return biblioteca.getLibros();
-        } catch (Exception e) {
-            System.out.println("Error Exception (Add libro)");
-            e.printStackTrace();
         }
-        return "";
-    }
+       
+    
 
-    public void AddLibrosBiblioteca(String usuario){
+    public void AddLibrosBiblioteca(String usuario,String titulo,String autor,String genero){
         try{
             usuario= usuario.toLowerCase().replace(" ","");
             File file = new File(ruta+usuario+".txt");
             FileWriter fw = new FileWriter(file,true);
             PrintWriter pw = new PrintWriter(fw);
-            String contenido= AddLibro();
+            String contenido= AddLibro(titulo,autor,genero);
             pw.println((contenido));
             pw.close();
             fw.close();

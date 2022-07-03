@@ -68,13 +68,19 @@ public class BibilotecaV extends JFrame {
         ActionListener buscar = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
+                BuscarLibroV ventana = new BuscarLibroV();
+                ventana.setVisible(true);
+                dispose();
            
             }
         };
 
-        ActionListener aregar = new ActionListener() {
+        ActionListener agregar = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
+                AgregarLibroV ventana = new AgregarLibroV();
+                ventana.setVisible(true);
+                dispose();
            
             }
         };
@@ -90,15 +96,15 @@ public class BibilotecaV extends JFrame {
 
         // Añadir Acciones
         buttonBuscar.addActionListener(buscar);
-        buttonAgregar.addActionListener(aregar);
+        buttonAgregar.addActionListener(agregar);
         buttonRegresar.addActionListener(regresar);
 
     }
 
     public void MenuList() {
         //Pre componentes, Definir las listas, arrays...
-        String[] listLibrosItems = {};
-        String[] listaGeneroItems = {"lista en sub lista?","HOLY","b"};
+        String[] listLibrosItems = {"Libro 1","Libro 2","Libro 3"};
+        String[] listaGeneroItems = {"Libros subdivididos en Generos","Aventura","Ciencia Ficcion","Fantasia","No ficcion"};
 
     
         // Componentes

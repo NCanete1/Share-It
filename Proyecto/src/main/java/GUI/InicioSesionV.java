@@ -90,9 +90,6 @@ public class InicioSesionV extends JFrame {
                     JOptionPane.showMessageDialog(null, "Favor de llenar los espacios vacios");
                 } else {
                     //Check if the password is correct 
-                    PerfilV ventana = new PerfilV();
-                    ventana.setVisible(true);
-                    dispose();
                 }
             }
         };
@@ -112,6 +109,8 @@ public class InicioSesionV extends JFrame {
         buttonCrearcuenta.addActionListener(crear);
 
     }
+
+
 
     public void Menu() {
         // Tamaño y Diseño
