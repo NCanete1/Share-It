@@ -20,10 +20,6 @@ public class ValidarRut extends JFrame implements ActionListener {
     public ValidarRut() {
 
     }
-    /* Para llamar a pestaña
-        Rut v1 = new Rut();
-        v1.Pestaña();
-    }*/
 
     public void Pestaña() {
         ValidarRut v2 = new ValidarRut("Usuario", 500, 500);
