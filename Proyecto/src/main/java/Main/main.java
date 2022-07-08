@@ -4,7 +4,7 @@ import GUI.*;
 
 public class main {
     public static void main(String[] args) {
-        CrearCuentaV  menu = new CrearCuentaV();
+        InicioSesionV  menu = new InicioSesionV();
         menu.setVisible(true);
     }
 }

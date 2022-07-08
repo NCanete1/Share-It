@@ -2,20 +2,22 @@ package Modelo;
 
 import Datos.*;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Rutas {
     Scanner teclado= new Scanner(System.in);
-    private String ruta= "Usuarios/";
-    private String rutausuario= "Usuarios/usuario1.txt";
+    private String ruta= "Proyecto/Usuarios/";
+    private String rutausuario;
     private File file;
 
     public File CrearRuta(String user){
         try {
             String usuario = user.toLowerCase().replace(" ","");
-            rutausuario= "Usuarios/"+ usuario +".txt";
-            return new File(usuario);
+            rutausuario= ruta+ usuario +".txt";
+            return new File(rutausuario);
         }catch (Exception e){
             System.out.println("Exception Error (CrearLibreria)");
         }
@@ -36,9 +38,6 @@ public class Rutas {
             }
             return result;
         }
-    
-    
-
 
     public void CrearBibliotecaUsuario(String usuario) {
                 file = CrearRuta(usuario);
@@ -51,6 +50,16 @@ public class Rutas {
                     }
                 }
         }
+
+        public String LeerUsuario(String user,int n){
+        String linea= "";
+        try {
+            linea = Files.readAllLines(Paths.get(ruta+user+".txt")).get(n);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        return linea;
+    }
 
     public void LeerBiblioteca(String user){
         String texto= "";

@@ -57,6 +57,6 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "correo:"+ this.correo+ "\n telefono: " + this.telefono;
+        return this.nombre+ "\n" +this.correo+ "\n" + this.telefono + "\n" +this.biblioteca;
     }
 }

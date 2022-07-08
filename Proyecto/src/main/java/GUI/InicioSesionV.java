@@ -5,6 +5,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
+import Modelo.Rutas;
+
 public class InicioSesionV extends JFrame {
     private JButton buttonIngresar;
     private JButton buttonCrearcuenta;
@@ -81,27 +83,9 @@ public class InicioSesionV extends JFrame {
         buttonIngresar.setBounds(80, 335, 170, 30);
         buttonCrearcuenta.setBounds(115, 430, 110, 20);
 
-        // ActionListener
-
-        ActionListener ingresar = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                if (usuario.getText().isEmpty() || password.getPassword().length == 0) {
-                    JOptionPane.showMessageDialog(null, "Favor de llenar los espacios vacios");
-                } else {
-                    //Check if the password is correct 
-                }
-            }
-        };
-
-        ActionListener crear = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                    CrearCuentaV ventana = new CrearCuentaV();
-                    ventana.setVisible(true);
-                    dispose();
-                }
-        };
+        // Listener
+        Ingresar ingresar = new Ingresar();
+        Crear crear = new Crear();
 
         // Añadir Acciones
 
@@ -110,7 +94,35 @@ public class InicioSesionV extends JFrame {
 
     }
 
+    // ActionListener
 
+    private class Crear implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            CrearCuentaV ventana = new CrearCuentaV();
+            ventana.setVisible(true);
+            dispose();
+        }
+    }
+
+    private class Ingresar implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            if (usuario.getText().isEmpty() || password.getPassword().length == 0) {
+                JOptionPane.showMessageDialog(null, "Favor de llenar los espacios vacios");
+            } else {
+                // Check if the password is correct
+                Rutas ruta = new Rutas();
+                if ((ruta.LeerUsuario(usuario.getText(),0)).equals(String.valueOf(password.getPassword()))) {
+                    PerfilV ventana = new PerfilV(ruta.LeerUsuario(usuario.getText(),1),ruta.LeerUsuario(usuario.getText(),2),Integer.valueOf(ruta.LeerUsuario(usuario.getText(),3)));
+                    ventana.setVisible(true);
+                    dispose();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecto. \n Revise con detalle los datos ingresados.");
+                }
+            }
+        }
+    }
 
     public void Menu() {
         // Tamaño y Diseño

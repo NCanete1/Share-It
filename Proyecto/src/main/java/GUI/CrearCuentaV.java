@@ -103,15 +103,17 @@ public class CrearCuentaV extends JFrame {
         };
 
 
-        //Añadir Acciones
-        MyActionListener al= new MyActionListener();
-        buttonContinuar.addActionListener(al);
+        //Listener 
+        Continuar continuar= new Continuar();
+
+        //add
+        buttonContinuar.addActionListener(continuar);
 
     }
 
     //Listener
 
-    private class MyActionListener implements ActionListener{
+    private class Continuar implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent ae) {
             if (rut.getText().isEmpty() || contraseña.getPassword().length == 0 ||email.getText().isEmpty() ||celular.getText().isEmpty() ) {
