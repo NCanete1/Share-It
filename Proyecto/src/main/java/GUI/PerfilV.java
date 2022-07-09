@@ -5,6 +5,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
+import Modelo.Rutas;
+
 public class PerfilV extends JFrame {
     private JLabel labelPerfil;
     private JLabel labelNombre;
@@ -14,21 +16,16 @@ public class PerfilV extends JFrame {
     private JTextField celular;
     private JButton buttonBiblioteca;
     private JButton buttonDesconectarse;
+    private String user;
 
-    public PerfilV() {
-        Menu();
-        MenuLabel();
-        MenuButtons();
-        MenuTextField();
-        pack();
-        setVisible(true);
-    }
 
-    public PerfilV(String usuario, String email, int telefono) {
+    public PerfilV(String rut) {
+        Rutas ruta = new Rutas();
+        user=rut;
         Menu();
-        MenuLabel(usuario);
+        MenuLabel(ruta.LeerUsuario(rut,1).toUpperCase());
         MenuButtons();
-        MenuTextField(email,telefono);
+        MenuTextField(ruta.LeerUsuario(rut,2),Integer.valueOf(ruta.LeerUsuario(rut,3)));
         pack();
         setVisible(true);
     }
@@ -146,7 +143,7 @@ public class PerfilV extends JFrame {
         ActionListener Biblioteca = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                BibilotecaV ventana = new BibilotecaV();
+                BibliotecaV ventana = new BibliotecaV(user);
                 ventana.setVisible(true);
                 dispose();
             }

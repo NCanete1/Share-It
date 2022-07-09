@@ -2,10 +2,10 @@ package Datos;
 public class Libro {
     private String titulo, autor , genero;
 
-    public Libro() {
-        this.titulo = "";
-        this.autor = "";
-        this.genero = "";
+    public Libro(String titulo, String autor, String genero) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.genero = genero;
     }
 
     public String getTitulo() {
@@ -34,7 +34,7 @@ public class Libro {
 
     @Override
     public String toString() {
-        return this.genero+"/"+this.autor+"/"+this.titulo;
+        return this.genero+"%%"+this.autor+"%%"+this.titulo;
     }
 }
 

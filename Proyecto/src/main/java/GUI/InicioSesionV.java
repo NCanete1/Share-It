@@ -17,6 +17,7 @@ public class InicioSesionV extends JFrame {
     private JLabel labelRut;
     private JLabel labelMensaje;
     private JLabel labelIniciosesion;
+    
 
     public InicioSesionV() {
         Menu();
@@ -114,7 +115,7 @@ public class InicioSesionV extends JFrame {
                 // Check if the password is correct
                 Rutas ruta = new Rutas();
                 if ((ruta.LeerUsuario(usuario.getText(),0)).equals(String.valueOf(password.getPassword()))) {
-                    PerfilV ventana = new PerfilV(ruta.LeerUsuario(usuario.getText(),1),ruta.LeerUsuario(usuario.getText(),2),Integer.valueOf(ruta.LeerUsuario(usuario.getText(),3)));
+                    PerfilV ventana = new PerfilV(usuario.getText());
                     ventana.setVisible(true);
                     dispose();
                 }else{

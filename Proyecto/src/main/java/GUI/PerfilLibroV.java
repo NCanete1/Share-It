@@ -5,6 +5,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
+import Modelo.Rutas;
+
 public class PerfilLibroV extends JFrame {
     private JButton buttonRegresar;
     private JList listaContactos;
@@ -13,7 +15,13 @@ public class PerfilLibroV extends JFrame {
     private JTextField fieldGenero;
     private JLabel labelContacto;
 
-    public PerfilLibroV(String Titulo, String Autor, String Genero) {
+    private String user;
+  
+    Rutas ruta;
+
+    public PerfilLibroV(String Titulo, String Autor, String Genero,String rut) {
+        user = rut;
+   
         Menu();
         MenuLabel();
         MenuButtons();
@@ -77,7 +85,7 @@ public class PerfilLibroV extends JFrame {
         ActionListener regresar = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                BuscarLibroV ventana = new BuscarLibroV();
+                BuscarLibroV ventana = new BuscarLibroV(user);
                 ventana.setVisible(true);
                 dispose();
             }

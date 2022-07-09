@@ -1,34 +1,32 @@
 package Datos;
 
 public class Usuario {
-    private String rut,nombre, correo;
+    private String rut,nombre, correo, contraseña;
     private int telefono;
-    private Biblioteca biblioteca;
    
 
-    public Usuario(String rut, String nombre, String correo, int telefono, Biblioteca biblioteca) {
+    public Usuario(String contraseña, String rut, String nombre, String correo, int telefono) {
+        this.contraseña = contraseña;
         this.rut = rut;
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
-        this.biblioteca = biblioteca;
     }
 
-
+    public String getContraseña() {
+        return contraseña;
+    }
+    
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+    
     public String getRut() {
         return rut;
     }
 
     public void setRut(String rut) {
         this.rut = rut;
-    }
-
-    public Biblioteca getBiblioteca() {
-        return biblioteca;
-    }
-
-    public void setBiblioteca(Biblioteca biblioteca) {
-        this.biblioteca = biblioteca;
     }
 
     public String getNombre() {
@@ -57,6 +55,6 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return this.nombre+ "\n" +this.correo+ "\n" + this.telefono + "\n" +this.biblioteca;
+        return contraseña+"\n" +this.nombre+ "\n" +this.correo+ "\n" + this.telefono;
     }
 }

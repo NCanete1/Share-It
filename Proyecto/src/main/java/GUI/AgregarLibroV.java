@@ -5,20 +5,29 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
+import Datos.Biblioteca;
+
+
 public class AgregarLibroV extends JFrame {
     private JLabel labelAgregarLibro;
     private JLabel labelTitulo;
     private JTextField autor;
     private JLabel labelautor;
     private JLabel labelGenero;
-    private JTextField genero;
+    private JComboBox genero;
     private JButton buttonAgregar;
     private JButton buttonRetroceder;
     private JTextField titulo;
 
-    public AgregarLibroV() {
+    private String user;
+    private String correo;
+    private int telefono;
+
+    public AgregarLibroV(String rut) {
+        user = rut;
         Menu();
         MenuLabel();
+        MenuComboBox();
         MenuButtons();
         MenuTextField();
         pack();
@@ -51,21 +60,34 @@ public class AgregarLibroV extends JFrame {
     public void MenuTextField() {
         // Componentes
         autor = new JTextField(5);
-        genero = new JTextField(5);
         titulo = new JTextField(5);
 
         // add componentes
         add(autor);
-        add(genero);
         add(titulo);
 
         // Posicionamiento
         autor.setBounds(130, 190, 250, 20);
-        genero.setBounds(130, 250, 250, 20);
         titulo.setBounds(130, 130, 250, 20);
 
     }
 
+    public void MenuComboBox() {
+
+        //Pre-Componentes
+        String[] generosItems = {"Fantasia", "Ciencia Ficcion", "Novela", "No ficcion"};
+
+        // Componentes
+        genero = new JComboBox (generosItems);
+
+        //add componentes
+        add(genero);
+
+        // Posicionamiento
+        genero.setBounds(130, 250, 250, 20);
+
+
+    }
     public void MenuButtons() {
         // Componentes
         buttonAgregar = new JButton("Agregar");
@@ -79,25 +101,46 @@ public class AgregarLibroV extends JFrame {
         buttonAgregar.setBounds(175, 290, 160, 35);
         buttonRetroceder.setBounds(15, 15, 100, 25);
 
-        //Listener
+        // Listener
 
         ActionListener regresar = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                BibilotecaV ventana = new BibilotecaV();
+                BibliotecaV ventana = new BibliotecaV(user);
                 ventana.setVisible(true);
                 dispose();
             }
         };
 
-        //Add Listenner
+        agregar agregar = new agregar();
+
+        // Add Listenner
+        buttonAgregar.addActionListener(agregar);
         buttonRetroceder.addActionListener(regresar);
 
     }
 
+    private class agregar implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            if (autor.getText().isEmpty() || titulo.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Favor de llenar los espacios vacios", "Error",
+                        JOptionPane.WARNING_MESSAGE);
+            } else {
+                Biblioteca biblioteca = new Biblioteca();
+                biblioteca.AñadirLibro(user,titulo.getText(),autor.getText(),String.valueOf(genero.getSelectedItem()));
+                JOptionPane.showMessageDialog(null, "Se ha añadido con exito", "Libro",
+                        JOptionPane.INFORMATION_MESSAGE);
+                PerfilLibroV ventana = new PerfilLibroV(titulo.getText(),autor.getText(),String.valueOf(genero.getSelectedItem()),user);
+                ventana.setVisible(true);
+                dispose();
+            }
+        }
+    }
+
     public void Menu() {
         // Tamaño y Diseño
-        this.setTitle("Buscar Libro");
+        this.setTitle("Agregar Libro");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(500, 500));
         setLayout(null);

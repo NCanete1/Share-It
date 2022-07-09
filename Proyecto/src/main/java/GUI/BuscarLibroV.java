@@ -5,6 +5,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
+import Datos.Usuario;
+
 public class BuscarLibroV extends JFrame {
     private JLabel labelAgregarLibro;
     private JLabel labelTitulo;
@@ -16,7 +18,12 @@ public class BuscarLibroV extends JFrame {
     private JButton buttonRetroceder;
     private JTextField titulo;
 
-    public BuscarLibroV() {
+    private String user;
+
+
+
+    public BuscarLibroV(String rut) {
+        user = rut;
         Menu();
         MenuLabel();
         MenuButtons();
@@ -86,7 +93,7 @@ public class BuscarLibroV extends JFrame {
                 if (titulo.getText().isEmpty() && autor.getText().isEmpty() && genero.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Favor de llenar los campos vacios");
                 }else{
-                PerfilLibroV ventana = new PerfilLibroV(titulo.getText(),autor.getText(),genero.getText());
+                PerfilLibroV ventana = new PerfilLibroV(titulo.getText(),autor.getText(),genero.getText(),user);
                 ventana.setVisible(true);
                 dispose();
                 }
@@ -96,7 +103,7 @@ public class BuscarLibroV extends JFrame {
         ActionListener regresar = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                BibilotecaV ventana = new BibilotecaV();
+                BibliotecaV ventana = new BibliotecaV(user);
                 ventana.setVisible(true);
                 dispose();
             }
