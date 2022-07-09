@@ -79,7 +79,7 @@ public class MenuAntiguo {
                     break;
                 case 2: //Añadir Libro
                     System.out.println("Añadiendo Libro");
-                    project.AddLibrosBiblioteca(Usuario);
+                   // project.AddLibrosBiblioteca();
                     break;
                 case 3:
                     String libro = teclado.nextLine();

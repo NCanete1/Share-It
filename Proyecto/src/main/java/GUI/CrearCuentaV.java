@@ -21,7 +21,7 @@ public class CrearCuentaV extends JFrame {
     private JButton buttonContinuar;
     private JButton buttonCancelar;
 
-    private MyActionListener al;
+    private Continuar al;
 
     public CrearCuentaV() {
         Menu();

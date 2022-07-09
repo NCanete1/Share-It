@@ -1,6 +1,5 @@
 package Datos;
 
-
 public class Usuario {
     private String rut,nombre, correo;
     private int telefono;
@@ -14,6 +13,7 @@ public class Usuario {
         this.telefono = telefono;
         this.biblioteca = biblioteca;
     }
+
 
     public String getRut() {
         return rut;
