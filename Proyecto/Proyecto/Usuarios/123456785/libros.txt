@@ -1,0 +1,9 @@
+Fantasia%%a%%a
+Fantasia%%b%%b
+Fantasia%%c%%c
+Fantasia%%c%%d
+Fantasia%%a%%d
+No ficcion%%a%%a
+Ficcion%%c%%a
+CienciaFiccion%%d%%a
+CienciaFiccion%%a%%b
