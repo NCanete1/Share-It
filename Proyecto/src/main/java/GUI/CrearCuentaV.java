@@ -7,6 +7,7 @@ import javax.swing.event.*;
 
 import Datos.Agenda;
 import Modelo.Rutas;
+import Validadores.ValidadorRut;
 
 public class CrearCuentaV extends JFrame {
     private JLabel labelMensaje;
@@ -39,7 +40,7 @@ public class CrearCuentaV extends JFrame {
         labelMensaje = new JLabel("Crea tu cuenta!");
 
         labelRut = new JLabel("Rut");
-        labelNombre= new JLabel("Nombre");
+        labelNombre = new JLabel("Nombre");
         labelemail = new JLabel("Correo de Contacto");
         labelCelular = new JLabel("Celular");
         labelContraseña = new JLabel("Contraseña");
@@ -103,40 +104,45 @@ public class CrearCuentaV extends JFrame {
 
         ActionListener cancelar = new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent ae) {   
-                    InicioSesionV ventana = new InicioSesionV();
-                    ventana.setVisible(true);
-                    dispose();
-                }
+            public void actionPerformed(ActionEvent ae) {
+                InicioSesionV ventana = new InicioSesionV();
+                ventana.setVisible(true);
+                dispose();
+            }
         };
 
+        // Listener
+        Continuar continuar = new Continuar();
 
-        //Listener 
-        Continuar continuar= new Continuar();
-
-        //add
+        // add
         buttonContinuar.addActionListener(continuar);
         buttonContinuar.addActionListener(cancelar);
 
     }
 
-    //Listener
+    // Listener
 
-    private class Continuar implements ActionListener{
+    private class Continuar implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
-            if (rut.getText().isEmpty() || contraseña.getPassword().length == 0 ||email.getText().isEmpty() ||celular.getText().isEmpty() ) {
+            if (rut.getText().isEmpty() || contraseña.getPassword().length == 0 || email.getText().isEmpty()
+                    || celular.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Favor de llenar los espacios vacios");
             } else {
                 Agenda agenda = new Agenda();
-                if(!agenda.ValidarRut(rut.getText())) {
-                    JOptionPane.showMessageDialog(null, "Ingrese un rut valido");
-                    }else{
-                        Rutas rutas = new Rutas();
-                        if(rutas.ExisteUsuario(rut.getText())){
-                            JOptionPane.showMessageDialog(null, "El usuario ya existe");
-                        }else{
-                            agenda.AñadirUsarios(rut.getText(), String.valueOf(contraseña.getPassword()),nombre.getText(),email.getText(), Integer.parseInt(celular.getText()));
+                if (!agenda.ValidarRut(rut.getText())) {
+                    JOptionPane.showMessageDialog(null, "Ingrese un rut valido","Error",JOptionPane.WARNING_MESSAGE);
+                } else {
+                    Rutas rutas = new Rutas();
+                    if (rutas.ExisteUsuario(rut.getText())) {
+                        JOptionPane.showMessageDialog(null, "El usuario ya existe","Error",JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        int respuesta = JOptionPane.showConfirmDialog(null,
+                                "Estas seguro que los datos ingresados son CORRECTOS?",
+                                "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if (respuesta == JOptionPane.YES_OPTION) {
+                            agenda.AñadirUsarios(rut.getText(), String.valueOf(contraseña.getPassword()),
+                                    nombre.getText(), email.getText(), Integer.parseInt(celular.getText()));
                             PerfilV ventana = new PerfilV(rut.getText());
                             ventana.setVisible(true);
                             dispose();
@@ -145,6 +151,7 @@ public class CrearCuentaV extends JFrame {
                 }
             }
         }
+    }
 
     public void Menu() {
         // Tamaño y Diseño

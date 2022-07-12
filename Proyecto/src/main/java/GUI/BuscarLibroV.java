@@ -10,23 +10,26 @@ import Datos.Usuario;
 public class BuscarLibroV extends JFrame {
     private JLabel labelAgregarLibro;
     private JLabel labelTitulo;
-    private JTextField autor;
     private JLabel labelautor;
     private JLabel labelGenero;
-    private JTextField genero;
-    private JButton buttonBuscar;
-    private JButton buttonRetroceder;
+   
+    private JTextField autor;
     private JTextField titulo;
 
+    private JButton buttonBuscar;
+    private JButton buttonRetroceder;
+
+    private JComboBox genero;
+  
+
     private String user;
-
-
 
     public BuscarLibroV(String rut) {
         user = rut;
         Menu();
         MenuLabel();
         MenuButtons();
+        MenuComboBox();
         MenuTextField();
         pack();
         setVisible(true);
@@ -58,19 +61,15 @@ public class BuscarLibroV extends JFrame {
     public void MenuTextField() {
         // Componentes
         autor = new JTextField(5);
-        genero = new JTextField(5);
         titulo = new JTextField(5);
 
         // add componentes
         add(autor);
-        add(genero);
         add(titulo);
 
         // Posicionamiento
         autor.setBounds(130, 190, 250, 20);
-        genero.setBounds(130, 250, 250, 20);
         titulo.setBounds(130, 130, 250, 20);
-
     }
 
     public void MenuButtons() {
@@ -86,14 +85,14 @@ public class BuscarLibroV extends JFrame {
         buttonBuscar.setBounds(175, 290, 160, 35);
         buttonRetroceder.setBounds(15, 15, 100, 25);
 
-        //Listerner
+        //Listener
         ActionListener buscar = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (titulo.getText().isEmpty() && autor.getText().isEmpty() && genero.getText().isEmpty()) {
+                if (titulo.getText().isEmpty() && autor.getText().isEmpty() ) {
                     JOptionPane.showMessageDialog(null, "Favor de llenar los campos vacios");
                 }else{
-                PerfilLibroV ventana = new PerfilLibroV(titulo.getText(),autor.getText(),genero.getText(),user);
+                PerfilLibroV ventana = new PerfilLibroV(titulo.getText(),autor.getText(),String.valueOf(genero.getSelectedItem()),user);
                 ventana.setVisible(true);
                 dispose();
                 }
@@ -112,6 +111,21 @@ public class BuscarLibroV extends JFrame {
         //Add
         buttonBuscar.addActionListener(buscar);
         buttonRetroceder.addActionListener(regresar);
+
+    }
+
+    public void MenuComboBox() {
+        //Pre-Componentes
+        String[] generosItems = {"Fantasia", "Ciencia Ficcion", "No ficcion","Bibliografia","Romance"};
+
+        // Componentes
+        genero = new JComboBox (generosItems);
+
+        //add componentes
+        add(genero);
+
+        // Posicionamiento
+        genero.setBounds(130, 250, 250, 20);
 
     }
 

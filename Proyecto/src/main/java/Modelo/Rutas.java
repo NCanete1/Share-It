@@ -5,7 +5,10 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 public class Rutas {
@@ -130,30 +133,6 @@ public class Rutas {
         return "biblioteca.getLibros()";
     }
 
-    public boolean estaVacio(File file) {
-        return file.length() == 0;
-    }
-
-    public void AddLibrosBiblioteca(String usuario, String titulo, String autor, String genero) {
-        try {
-            usuario = usuario.toLowerCase().replace(" ", "");
-            File file = new File(ruta + usuario + "/libros.txt");
-            FileWriter fw = new FileWriter(file, true);
-            PrintWriter pw = new PrintWriter(fw);
-            Libro libro= new Libro(titulo,autor, genero);
-            String contenido = libro.toString();
-            if(!estaVacio(file)){
-                pw.println(("\n"+contenido));
-            }else{
-                pw.println((contenido));
-            }
-            pw.close();
-            fw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void MostrarBibliotecaUsuarios() {
         try {
             File file = new File(ruta);
@@ -171,7 +150,7 @@ public class Rutas {
         String libro = nombrelibro.toLowerCase();
         String encontrado = "";
         try {
-            BufferedReader bf = new BufferedReader(new FileReader(ruta + usuario + ".txt"));
+            BufferedReader bf = new BufferedReader(new FileReader(ruta + usuario + "/libros.txt"));
             String bfRead, temp;
             while ((bfRead = bf.readLine()) != null) {
                 temp = (bfRead).toLowerCase();
@@ -195,7 +174,7 @@ public class Rutas {
         }
     }
 
-    public void BuscarLibro(String libro) {
+    public void buscarLibro(String libro) {
         try {
             File file = new File(ruta);
             File[] files = file.listFiles();
@@ -209,4 +188,5 @@ public class Rutas {
             System.out.println("Error exception (Buscar Libro)");
         }
     }
+ 
 }

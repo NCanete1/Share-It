@@ -5,8 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
-import Datos.Biblioteca;
-
+import Modelo.Biblioteca;
 
 public class AgregarLibroV extends JFrame {
     private JLabel labelAgregarLibro;
@@ -15,6 +14,7 @@ public class AgregarLibroV extends JFrame {
     private JLabel labelautor;
     private JLabel labelGenero;
     private JComboBox genero;
+
     private JButton buttonAgregar;
     private JButton buttonRetroceder;
     private JTextField titulo;
@@ -74,20 +74,20 @@ public class AgregarLibroV extends JFrame {
 
     public void MenuComboBox() {
 
-        //Pre-Componentes
-        String[] generosItems = {"Fantasia", "Ciencia Ficcion", "Novela", "No ficcion"};
+        // Pre-Componentes
+        String[] generosItems = { "Fantasia", "Ciencia Ficcion", "No ficcion", "Bibliografia", "Romance" };
 
         // Componentes
-        genero = new JComboBox (generosItems);
+        genero = new JComboBox(generosItems);
 
-        //add componentes
+        // add componentes
         add(genero);
 
         // Posicionamiento
         genero.setBounds(130, 250, 250, 20);
 
-
     }
+
     public void MenuButtons() {
         // Componentes
         buttonAgregar = new JButton("Agregar");
@@ -128,12 +128,17 @@ public class AgregarLibroV extends JFrame {
                         JOptionPane.WARNING_MESSAGE);
             } else {
                 Biblioteca biblioteca = new Biblioteca();
-                biblioteca.AñadirLibro(user,titulo.getText(),autor.getText(),String.valueOf(genero.getSelectedItem()));
-                JOptionPane.showMessageDialog(null, "Se ha añadido con exito", "Libro",
-                        JOptionPane.INFORMATION_MESSAGE);
-                PerfilLibroV ventana = new PerfilLibroV(titulo.getText(),autor.getText(),String.valueOf(genero.getSelectedItem()),user);
-                ventana.setVisible(true);
-                dispose();
+                biblioteca.AñadirLibro(user, titulo.getText(), autor.getText(),
+                        String.valueOf(genero.getSelectedItem()));
+                int respuesta = JOptionPane.showConfirmDialog(null,
+                        "Estas seguro que los datos ingresados son CORRECTOS?",
+                        "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (respuesta == JOptionPane.YES_OPTION) {
+                    PerfilLibroV ventana = new PerfilLibroV(titulo.getText(), autor.getText(),
+                            String.valueOf(genero.getSelectedItem()), user);
+                    ventana.setVisible(true);
+                    dispose();
+                }
             }
         }
     }

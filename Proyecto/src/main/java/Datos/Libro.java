@@ -34,7 +34,7 @@ public class Libro {
 
     @Override
     public String toString() {
-        return this.genero+"%%"+this.autor+"%%"+this.titulo;
+        return this.genero.replace(" ", "")+"%%"+this.titulo.replace(" ", "")+"%%"+this.autor.replace(" ", "");
     }
 }
 

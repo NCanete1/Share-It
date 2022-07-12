@@ -2,12 +2,16 @@ package GUI;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.util.List;
+
 import javax.swing.*;
 import javax.swing.event.*;
-import Modelo.Rutas;
-import Datos.Usuario;
+import Modelo.Biblioteca;
+
 
 public class BibliotecaV extends JFrame {
+    private DefaultListModel<String> myListModel;
     private JButton buttonBuscar;
     private JButton buttonAgregar;
     private JButton buttonRegresar;
@@ -15,16 +19,19 @@ public class BibliotecaV extends JFrame {
     private JList listaGenero;
     private JTextField fieldFiltro;
     private JLabel labelBiblioteca;
+    private JLabel labelFiltro;
+    private JComboBox filtro;
 
     private String userrut;
 
     
 
-    public BibliotecaV(String rut) {
+    public BibliotecaV(String rut){
         userrut=rut;
         Menu();
         MenuLabel();
         MenuButtons();
+        MenuJComboBox();
         MenuTextField();
         MenuList();
         pack();
@@ -34,12 +41,15 @@ public class BibliotecaV extends JFrame {
     public void MenuLabel() {
         // Componentes
         labelBiblioteca = new JLabel ("Biblioteca");
+        labelFiltro = new JLabel ("Filtro por Genero");
 
         // add componentes
         add (labelBiblioteca);
+        add (labelFiltro);
 
         // Posicionamiento
         labelBiblioteca.setBounds (225, 40, 65, 25);
+        labelFiltro.setBounds (210, 205, 100, 20);
     }
 
     public void MenuTextField() {
@@ -109,15 +119,16 @@ public class BibliotecaV extends JFrame {
 
     }
 
-    public void MenuList() {
+    public void MenuList(){
         //Pre componentes, Definir las listas, arrays...
-        String[] listLibrosItems = {"Libro 1","Libro 2","Libro 3"};
-        String[] listaGeneroItems = {"Libros subdivididos en Generos","Aventura","Ciencia Ficcion","Fantasia","No ficcion"};
-
-    
+        Biblioteca biblioteca = new Biblioteca();
+        List<String> list = biblioteca.leerLibros(userrut);
+        myListModel = new DefaultListModel<String>();
+        
+        String[] listLibrosItems = list.toArray(new String[0]);
         // Componentes
         listLibros = new JList (listLibrosItems);
-        listaGenero = new JList (listaGeneroItems);
+        listaGenero = new JList<String>(myListModel);
         
         // add componentes
         add (listLibros);
@@ -129,18 +140,84 @@ public class BibliotecaV extends JFrame {
 
         // Posicionamiento
         listLibros.setBounds (110, 120, 300, 80);
-        listaGenero.setBounds (110, 250, 300, 165);
+        listaGenero.setBounds (110, 265, 300, 165);
 
         //Listeners
 
          // Añadir Acciones
     }
 
-    
+    public void MenuJComboBox(){
+        
+         //Pre componentes, Definir las listas, arrays...
+         String[] filtroItems = {"Fantasia", "CienciaFiccion", "Noficcion","Bibliografia","Romance"};
+ 
+         // Componentes
+         filtro = new JComboBox<String>(filtroItems);
+
+         // add componentes
+         add (filtro);
+ 
+         // Posicionamiento
+         filtro.setBounds (170, 230, 180, 20);
+ 
+         //Listeners
+         iTems items = new iTems();
+          // Añadir Acciones
+          filtro.addItemListener(items);
+    }
+
+    private class iTems implements ItemListener {
+        @Override
+        public void itemStateChanged(ItemEvent il) {
+            if (il.getStateChange() == ItemEvent.SELECTED) {
+                String[] jListItems = selecionarItems(filtro.getSelectedIndex());
+                myListModel.removeAllElements();
+                for (String s : jListItems)
+                    myListModel.addElement(s);
+            }
+        }
+    }
+
+
+    private String[] selecionarItems(int selection) {
+
+        Biblioteca biblioteca = new Biblioteca();
+        List<String> list = biblioteca.leerLibros(userrut);
+        List<String> listafiltrada = biblioteca.filtrarGenero("Fantasia", userrut);
+        String[] listaGeneroItems;
+        switch (selection) {
+            case 0:
+                listafiltrada = biblioteca.filtrarGenero("Fantasia", userrut);
+                listaGeneroItems = listafiltrada.toArray(new String[0]);
+                return listaGeneroItems;
+            case 1:
+                listafiltrada = biblioteca.filtrarGenero("CienciaFiccion", userrut);
+                listaGeneroItems = listafiltrada.toArray(new String[0]);
+                return listaGeneroItems;
+            case 2:
+                listafiltrada = biblioteca.filtrarGenero("Noficcion", userrut);
+                listaGeneroItems = listafiltrada.toArray(new String[0]);
+                return listaGeneroItems;
+            case 3:
+                listafiltrada = biblioteca.filtrarGenero("Bibliografia", userrut);
+                listaGeneroItems = listafiltrada.toArray(new String[0]);
+                return listaGeneroItems;
+            case 4:
+                listafiltrada = biblioteca.filtrarGenero("Romance", userrut);
+                listaGeneroItems = listafiltrada.toArray(new String[0]);
+                return listaGeneroItems;
+            default:
+                list = biblioteca.leerLibros(userrut);
+                listaGeneroItems = list.toArray(new String[0]);
+                return listaGeneroItems;
+        }
+
+    }
 
     public void Menu() {
         // Tamaño y Diseño
-        this.setTitle("Agregar Libro");
+        this.setTitle("Biblioteca");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(500, 500));
         setLayout(null);

@@ -1,7 +1,7 @@
 package Datos;
 
 import Modelo.Rutas;
-import Modelo.ValidadorRut;
+import Validadores.ValidadorRut;
 
 import java.util.ArrayList;
 import java.util.List;

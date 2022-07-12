@@ -102,7 +102,6 @@ public class InicioSesionV extends JFrame {
         public void actionPerformed(ActionEvent ae) {
             CrearCuentaV ventana = new CrearCuentaV();
             ventana.setVisible(true);
-            dispose();
         }
     }
 

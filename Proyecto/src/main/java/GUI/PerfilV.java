@@ -27,6 +27,17 @@ public class PerfilV extends JFrame {
         MenuButtons();
         MenuTextField(ruta.LeerUsuario(rut,2),Integer.valueOf(ruta.LeerUsuario(rut,3)));
         pack();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+
+    public PerfilV(String rut,String a) {
+        Rutas ruta = new Rutas();
+        user=rut;
+        Menu();
+        MenuLabel(ruta.LeerUsuario(rut,1).toUpperCase());
+        MenuTextField(ruta.LeerUsuario(rut,2),Integer.valueOf(ruta.LeerUsuario(rut,3)));
+        pack();
         setVisible(true);
     }
 
@@ -170,7 +181,6 @@ public class PerfilV extends JFrame {
     public void Menu() {
         // Tamaño y Diseño
         this.setTitle("Perfil");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(500, 500));
         setLayout(null);
     }

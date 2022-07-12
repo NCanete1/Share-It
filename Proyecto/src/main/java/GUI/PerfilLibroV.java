@@ -2,9 +2,13 @@ package GUI;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
+
 import javax.swing.*;
 import javax.swing.event.*;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.TitlePaneLayout;
 
+import Modelo.Biblioteca;
 import Modelo.Rutas;
 
 public class PerfilLibroV extends JFrame {
@@ -16,17 +20,23 @@ public class PerfilLibroV extends JFrame {
     private JLabel labelContacto;
 
     private String user;
+    private String libro;
+    private String gen;
+    private String at;
   
     Rutas ruta;
 
-    public PerfilLibroV(String Titulo, String Autor, String Genero,String rut) {
+    public PerfilLibroV(String titulo, String autor, String genero,String rut) {
         user = rut;
+        libro=titulo;
+        gen=genero;
+        at=autor;
    
         Menu();
         MenuLabel();
         MenuButtons();
-        MenuTextField(Titulo, Autor, Genero);
-        MenuList();
+        MenuTextField(titulo, autor, genero);
+        MenuList(titulo, autor, genero);
         pack();
         setVisible(true);
     }
@@ -96,9 +106,13 @@ public class PerfilLibroV extends JFrame {
 
     }
 
-    public void MenuList() {
+    public void MenuList(String titulo, String autor, String genero) {
         //Pre componentes, Definir las listas, arrays...
-        String[] listaContactosItems = {"Nombre, Apellido 1", "Nombre, Apellido 2"};
+        Biblioteca biblioteca = new Biblioteca();
+        List<String> lista = biblioteca.conversionNombre(biblioteca.buscarLibro(genero,libro,autor));
+
+        // Componentes
+        String[] listaContactosItems = lista.toArray(new String[0]);
     
         // Componentes
         listaContactos = new JList (listaContactosItems);
@@ -115,11 +129,15 @@ public class PerfilLibroV extends JFrame {
         //Listeners
 
         listaContactos.addMouseListener(new MouseAdapter() {
+            Biblioteca biblioteca = new Biblioteca();
+            List<String> lista = biblioteca.buscarLibro(genero,libro,autor);
             public void mouseClicked(MouseEvent evt) {
+                
                 JList list = (JList)evt.getSource();
                 if (evt.getClickCount() == 2) {
-                    JOptionPane.showMessageDialog(null, list.getSelectedValue());
-        
+                    PerfilV ventana = new PerfilV(lista.get(list.getSelectedIndex()),lista.get(list.getSelectedIndex()));
+                    ventana.setVisible(true);
+
                     // Double-click detected
                     int index = list.locationToIndex(evt.getPoint());
                 } else if (evt.getClickCount() == 3) {
@@ -138,7 +156,7 @@ public class PerfilLibroV extends JFrame {
 
     public void Menu() {
         // Tamaño y Diseño
-        this.setTitle("Buscar Libro");
+        this.setTitle(libro.toUpperCase());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(500, 500));
         setLayout(null);
