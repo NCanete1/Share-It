@@ -1,4 +1,0 @@
-1234
-Nombre Apellido
-correo@gmail.com
-98765432
