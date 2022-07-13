@@ -93,7 +93,7 @@ public class BuscarLibroV extends JFrame {
                 if (titulo.getText().isEmpty() || autor.getText().isEmpty() ) {
                     JOptionPane.showMessageDialog(null, "Favor de llenar los campos vacios");
                 }else{
-                PerfilLibroV ventana = new PerfilLibroV(titulo.getText(),autor.getText(),String.valueOf(genero.getSelectedItem()),user);
+                PerfilLibroV ventana = new PerfilLibroV(titulo.getText().replace(" ",""),autor.getText().replace(" ",""),String.valueOf(genero.getSelectedItem()),user);
                 ventana.setVisible(true);
                 dispose();
                 }

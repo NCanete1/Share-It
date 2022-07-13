@@ -91,7 +91,6 @@ public class ValidadorRut {
 
     public static boolean Verificacion(String rut) {
         String rutn= rut.toLowerCase().replace("k", "0"); 
-        System.out.println(rutn);
         if (rut.equals("")) {
             return false;
         }

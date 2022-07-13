@@ -128,7 +128,7 @@ public class CrearCuentaV extends JFrame {
     private class Continuar implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
-            
+            try{
             if (rut.getText().isEmpty() || contraseña.getPassword().length == 0 || email.getText().isEmpty()
                     || celular.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Favor de llenar los espacios vacios");
@@ -162,7 +162,7 @@ public class CrearCuentaV extends JFrame {
                 }
             }
        
-    }
+    }catch(Exception e){System.out.println("Error: Por favor anote correctamente" );}}
     }
 
     public void Menu() {
