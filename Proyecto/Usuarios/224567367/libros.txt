@@ -1,8 +1,0 @@
-Fantasia%%c%%c
-Fantasia%%c%%d
-Fantasia%%a%%d
-Noficcion%%a%%a
-Ficcion%%c%%a
-CienciaFiccion%%Harry Potter%%B
-CienciaFiccion%%a%%b
-Bibliografia%%Usuario%%LibroBiliografico
